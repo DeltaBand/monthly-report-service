@@ -17,54 +17,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deltaband.tools.monthlyreport.entity.User;
-import com.deltaband.tools.monthlyreport.service.IUserService;
+import com.deltaband.tools.monthlyreport.entity.Report;
+import com.deltaband.tools.monthlyreport.service.IReportService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @CrossOrigin
 @RestController
-@RequestMapping(name = "users", path = "users")
-@Tag(name = "Users", description = "Users API")
-public class UserController {
+@RequestMapping(name = "reports", path = "reports")
+@Tag(name = "Reports", description = "Reports API")
+public class ReportController {
 
 	@Autowired
-	private IUserService userService;
+	private IReportService reportService;
 
 	@GetMapping(produces = "application/json")
-	@Operation(summary = "Get all Users", description = "Gets all the Users in a non paginated collection")
+	@Operation(summary = "Get all Reports", description = "Gets all the Reports in a non paginated collection")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<User> find() {
-		return userService.findAll();
+	public Collection<Report> find() {
+		return this.reportService.findAll();
 	}
 
 	@GetMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Get a single user", description = "Gets a single user")
+	@Operation(summary = "Get a single report", description = "Gets a single report")
 	@ResponseStatus(code = HttpStatus.OK)
-	public User getOne(@PathVariable Integer id) {
-		return userService.get(id);
+	public Report getOne(@PathVariable Integer id) {
+		return this.reportService.get(id);
 	}
 
 	@PostMapping(produces = "application/json")
-	@Operation(summary = "Create user", description = "Creates an user if the given user is valid")
+	@Operation(summary = "Create report", description = "Creates a report if the given user is valid")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void create(@RequestBody @Valid User user) {
-		userService.create(user);
+	public void create(@RequestBody @Valid Report report) {
+		this.reportService.create(report);
 	}
 
 	@PutMapping(produces = "application/json", consumes = "application/json", path = "{id}")
-	@Operation(summary = "Update user", description = "Updates an user if the given user is valid")
+	@Operation(summary = "Update report", description = "Updates a report if the given report is valid")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void update(@PathVariable Integer id, @RequestBody @Valid User user) {
-		user.setId(id);
-		userService.update(user);
+	public void update(@PathVariable Integer id, @RequestBody @Valid Report report) {
+		report.setId(id);
+		this.reportService.update(report);
 	}
 
 	@DeleteMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Delete user", description = "Deletes an user if the given user id is valid")
+	@Operation(summary = "Delete report", description = "Deletes a report if the given report id is valid")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
-		userService.delete(id);
+		this.reportService.delete(id);
 	}
+
 }

@@ -4,8 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.deltaband.tools.monthlyreport.entity.User;
+import com.deltaband.tools.monthlyreport.entity.ReportType;
 
 @Repository
-public interface UserRepository extends JpaSpecificationExecutor<User>, JpaRepository<User, Integer> {
+public interface ReportTypeRepository extends JpaSpecificationExecutor<ReportType>, JpaRepository<ReportType, Integer> {
+
 }

@@ -17,54 +17,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deltaband.tools.monthlyreport.entity.User;
-import com.deltaband.tools.monthlyreport.service.IUserService;
+import com.deltaband.tools.monthlyreport.entity.Client;
+import com.deltaband.tools.monthlyreport.service.IClientService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @CrossOrigin
 @RestController
-@RequestMapping(name = "users", path = "users")
-@Tag(name = "Users", description = "Users API")
-public class UserController {
+@RequestMapping(name = "clients", path = "clients")
+@Tag(name = "Clients", description = "Clients API")
+public class ClientController {
 
 	@Autowired
-	private IUserService userService;
+	private IClientService clientService;
 
 	@GetMapping(produces = "application/json")
-	@Operation(summary = "Get all Users", description = "Gets all the Users in a non paginated collection")
+	@Operation(summary = "Get all clients", description = "Gets all the clients in a non paginated collection")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<User> find() {
-		return userService.findAll();
+	public Collection<Client> find() {
+		return clientService.findAll();
 	}
 
 	@GetMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Get a single user", description = "Gets a single user")
+	@Operation(summary = "Get a single client", description = "Gets a single client")
 	@ResponseStatus(code = HttpStatus.OK)
-	public User getOne(@PathVariable Integer id) {
-		return userService.get(id);
+	public Client getOne(@PathVariable Integer id) {
+		return clientService.get(id);
 	}
 
 	@PostMapping(produces = "application/json")
-	@Operation(summary = "Create user", description = "Creates an user if the given user is valid")
+	@Operation(summary = "Create client", description = "Creates a client if the given client is valid")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void create(@RequestBody @Valid User user) {
-		userService.create(user);
+	public void create(@RequestBody @Valid Client client) {
+		clientService.create(client);
 	}
 
 	@PutMapping(produces = "application/json", consumes = "application/json", path = "{id}")
-	@Operation(summary = "Update user", description = "Updates an user if the given user is valid")
+	@Operation(summary = "Update client", description = "Updates a client if the given client is valid")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void update(@PathVariable Integer id, @RequestBody @Valid User user) {
-		user.setId(id);
-		userService.update(user);
+	public void update(@PathVariable Integer id, @RequestBody @Valid Client client) {
+		client.setId(id);
+		clientService.update(client);
 	}
 
 	@DeleteMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Delete user", description = "Deletes an user if the given user id is valid")
+	@Operation(summary = "Delete client", description = "Deletes a client if the given client id is valid")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
-		userService.delete(id);
+		clientService.delete(id);
 	}
 }

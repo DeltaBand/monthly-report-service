@@ -17,54 +17,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deltaband.tools.monthlyreport.entity.User;
-import com.deltaband.tools.monthlyreport.service.IUserService;
+import com.deltaband.tools.monthlyreport.entity.Project;
+import com.deltaband.tools.monthlyreport.service.IProjectService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @CrossOrigin
 @RestController
-@RequestMapping(name = "users", path = "users")
-@Tag(name = "Users", description = "Users API")
-public class UserController {
+@RequestMapping(name = "projects", path = "projects")
+@Tag(name = "Projects", description = "Projects API")
+public class ProjectController {
 
 	@Autowired
-	private IUserService userService;
+	private IProjectService projectService;
 
 	@GetMapping(produces = "application/json")
-	@Operation(summary = "Get all Users", description = "Gets all the Users in a non paginated collection")
+	@Operation(summary = "Get all Projects", description = "Gets all the Projects in a non paginated collection")
 	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<User> find() {
-		return userService.findAll();
+	public Collection<Project> find() {
+		return this.projectService.findAll();
 	}
 
 	@GetMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Get a single user", description = "Gets a single user")
+	@Operation(summary = "Get a single project", description = "Gets a single project")
 	@ResponseStatus(code = HttpStatus.OK)
-	public User getOne(@PathVariable Integer id) {
-		return userService.get(id);
+	public Project getOne(@PathVariable Integer id) {
+		return this.projectService.get(id);
 	}
 
 	@PostMapping(produces = "application/json")
-	@Operation(summary = "Create user", description = "Creates an user if the given user is valid")
+	@Operation(summary = "Create project", description = "Creates a project if the given user is valid")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void create(@RequestBody @Valid User user) {
-		userService.create(user);
+	public void create(@RequestBody @Valid Project project) {
+		this.projectService.create(project);
 	}
 
 	@PutMapping(produces = "application/json", consumes = "application/json", path = "{id}")
-	@Operation(summary = "Update user", description = "Updates an user if the given user is valid")
+	@Operation(summary = "Update project", description = "Updates a project if the given project is valid")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void update(@PathVariable Integer id, @RequestBody @Valid User user) {
-		user.setId(id);
-		userService.update(user);
+	public void update(@PathVariable Integer id, @RequestBody @Valid Project project) {
+		project.setId(id);
+		this.projectService.update(project);
 	}
 
 	@DeleteMapping(produces = "application/json", path = "{id}")
-	@Operation(summary = "Delete user", description = "Deletes an user if the given user id is valid")
+	@Operation(summary = "Delete project", description = "Deletes a project if the given project id is valid")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
-		userService.delete(id);
+		this.projectService.delete(id);
 	}
+
 }

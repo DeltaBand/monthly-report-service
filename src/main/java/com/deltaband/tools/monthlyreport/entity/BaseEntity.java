@@ -7,21 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import com.deltaband.tools.monthlyreport.view.View;
-import com.fasterxml.jackson.annotation.JsonView;
-
 @MappedSuperclass
 public class BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonView(View.Get.class)
 	private Integer id;
 
-	@JsonView(View.Get.class)
 	private Instant createdAt = Instant.now();
 
-	@JsonView(View.Get.class)
 	private Instant updatedAt;
 
 	public BaseEntity() {
